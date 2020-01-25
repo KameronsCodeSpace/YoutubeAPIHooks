@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Search from './Search';
 import axios from 'axios'
@@ -7,18 +7,16 @@ import VideoList from './VideoList';
 import API_KEY from '../secrets'
 // import { Redirect } from 'react-router-dom';
 
-class Home extends Component {
-    state = {
-        videos: [],
-        selectedVideo: null,
-    }
+const Home = () => {
+    const [videos, setVideos] = useState([]);
+    const [selectedVideo, setVideo] = useState(null);
 
-    componentDidMount() {
+    useEffect(() => {
         //if I add this we will see a list of videos right away
-        // this.handleSubmit('Dark Souls')
-    }
+        // handleSubmit('Dark Souls')
+    }, [])
 
-    handleSubmit = async (searchTerm) => {
+    const handleSubmit = async (searchTerm) => {
         const url = `https://www.googleapis.com/youtube/v3/search?`
         const response = await axios.get(url, {
             params: {
@@ -29,36 +27,31 @@ class Home extends Component {
             }
         });
         console.log(response.data.items)
-        this.setState({
-            videos: response.data.items,
-            selectedVideo: response.data.items[0]
-        })
-        console.log("state2", this.state.selectedVideo)
+        setVideos(response.data.items)
+        setVideo(response.data.items[0])
+
+        console.log("state2", selectedVideo)
 
     }
 
-    onVideoSelect = (video) => {
+    const onVideoSelect = (video) => {
         console.log("Working", video)
-        this.setState({
-            selectedVideo: video.id.videoId
-        })
+
+        setVideo(video.id.videoId)
+
         // <VideoDetail video={selectedVideo} />
-        console.log("state", this.state.selectedVideo)
+        console.log("state", selectedVideo)
         // return <Redirect to='/video' video={this.selectedVideo} />
     }
-
-    render() {
-
-        const { selectedVideo, videos } = this.state
 
         return (
             <Grid justify='center' spacing={10}>
                 <Grid container justify="center" spacing={10} item xs={12}>
                         <Grid item xs={10}>
-                            <Search onFormSubmit={this.handleSubmit} />
+                            <Search onFormSubmit={handleSubmit} />
                         </Grid>
                         <Grid item xs={10}>
-                            <VideoList video={selectedVideo} videos={videos} onVideoSelect={this.onVideoSelect} />
+                            <VideoList video={selectedVideo} videos={videos} onVideoSelect={onVideoSelect} />
 
                         </Grid>
 
@@ -68,6 +61,5 @@ class Home extends Component {
 
         );
     }
-}
 
 export default Home;
