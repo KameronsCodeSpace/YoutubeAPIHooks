@@ -1,0 +1,56 @@
+.App {
+  text-align: center;
+}
+
+nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  min-height: 10vh;
+  background: red;
+  color: white;
+}
+
+.nav-links {
+  width: 30%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  list-style: none;
+}
+
+.img-links {
+  list-style: none;
+}
+
+form { 
+  margin-top: 20px; 
+}
+
+form, #results { 
+  padding: 0 20px; 
+}
+
+.item { 
+  margin-bottom: 25px; 
+}
+
+.form-control {
+  width: 60%;
+  height: 30px;
+}
+
+.width {
+  width: 100px;
+  height: 40px;
+}
+.btn-primary { 
+  background: red; 
+  border-color: #957575;
+  color: white;
+ }
+
+ .btn-primary:hover, .btn-primary:active, .btn-primary:focus { 
+   background: red;  
+   border-color: #952b2b; 
+}
